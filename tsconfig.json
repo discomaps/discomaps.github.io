@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/js/",
+        "sourceMap": true,
+        "noImplicitAny": false,
+        "module": "commonjs",
+        "target": "es5",
+        "jsx": "react"
+    },
+    "include": ["./src/scripts/**/*"],
+    "awesomeTypescriptLoaderOptions": {
+        "reportFiles": ["./src/scripts/**/*"]
+    }
+}
