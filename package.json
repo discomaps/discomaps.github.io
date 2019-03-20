@@ -1,0 +1,68 @@
+{
+  "name": "discocats.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build-scripts && npm run build-styles",
+    "build-scripts": "npm run compile-build-scripts && webpack",
+    "build-styles": "npm run compile-build-scripts && node src/build/dist/scripts/build-styles.js",
+    "watch-scripts": "npm run compile-build-scripts && webpack --watch",
+    "watch-styles": "npm run compile-build-scripts && node src/build/dist/scripts/watch.js",
+    "compile-build-scripts": "tsc -p src/build/tsconfig.json",
+    "lint": "npm run compile-build-scripts && node src/build/dist/scripts/lint.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/discocats/discocats.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/discocats/discocats.github.io/issues"
+  },
+  "homepage": "https://github.com/discocats/discocats.github.io#readme",
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.2.0",
+    "@babel/polyfill": "^7.2.5",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
+    "@types/autoprefixer": "^9.4.0",
+    "@types/browser-sync": "0.0.43",
+    "@types/fs-extra": "^5.0.5",
+    "@types/glob": "^7.1.1",
+    "@types/node": "^11.11.1",
+    "@types/node-sass": "^4.11.0",
+    "@types/react": "^16.8.6",
+    "@types/react-dom": "^16.8.2",
+    "@types/stylelint": "^9.4.2",
+    "autoprefixer": "^9.4.9",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.5",
+    "browser-sync": "^2.26.3",
+    "colors": "^1.3.3",
+    "cssnano": "^4.1.10",
+    "fs": "0.0.1-security",
+    "fs-extra": "^7.0.1",
+    "glob": "^7.1.3",
+    "node-sass": "^4.11.0",
+    "postcss": "^7.0.14",
+    "source-map-loader": "^0.2.4",
+    "stylelint": "^9.10.1",
+    "stylelint-config-standard": "^18.2.0",
+    "stylelint-scss": "^3.5.4",
+    "tslint": "^5.13.1",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.3.3333",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3"
+  },
+  "dependencies": {
+    "core-js": "^2.6.5",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3"
+  }
+}
