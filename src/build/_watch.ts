@@ -18,15 +18,7 @@ function startProxy() {
     bsProxy.init(
         {
             files: [stylesOutPath, htmlOutPath, scriptsOutPath],
-            injectChanges: true,
-            port: 3004,
             proxy: "localhost:3005",
-            watchOptions: {
-                awaitWriteFinish: {
-                    pollInterval: 100,
-                    stabilityThreshold: 700,
-                },
-            },
         },
         (e) => {
             if (e) {
@@ -45,11 +37,9 @@ export function runServerAndProxy() {
 
     bsServer.init(
         {
-            online: false,
             open: false,
             port: 3005,
             server: "./",
-            ui: false,
         },
         (e) => {
             if (e) {
