@@ -5,6 +5,7 @@ import CityList from "./AdminPanel/CityList";
 
 interface IState {
     cities: City[];
+    currentCity: City;
 }
 
 export default class AdminPanel extends React.Component<{}, IState> {
@@ -24,16 +25,31 @@ export default class AdminPanel extends React.Component<{}, IState> {
                     name: "Berlin",
                 },
             ],
+            currentCity: null,
         };
     }
 
     public render() {
+        const addBtn =
+            this.state.currentCity === null ? (
+                <button type="button" className="btn btn-primary" onClick={this.handleAdd}>
+                    Add
+                </button>
+            ) : null;
+
         return (
             <main>
-                <CityForm />
+                <CityForm city={this.state.currentCity} />
                 <CityList cities={this.state.cities} onDelete={this.handleDelete} />
+                {addBtn}
             </main>
         );
+    }
+
+    private handleAdd = () => {
+        this.setState({
+            currentCity: new City(),
+        });
     }
 
     private handleDelete = (city: City) => {
