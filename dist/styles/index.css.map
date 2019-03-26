@@ -2,8 +2,9 @@
 	"version": 3,
 	"file": "index.css",
 	"sources": [
-		"../../src/styles/index.scss"
+		"../../src/styles/index.scss",
+		"../../src/styles/adminPanel.scss"
 	],
 	"names": [],
-	"mappings": ""
+	"mappings": "ACAA,AAAA,QAAQ,CAAC;EACL,KAAK,EAAE,MAAM,GAChB;;AACD,AAAA,UAAU,CAAC;EACP,KAAK,EAAE,GAAG,GACb"
 }

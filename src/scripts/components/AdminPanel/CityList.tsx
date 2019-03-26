@@ -15,8 +15,8 @@ export default class CityList extends React.Component<ICityListProps, {}> {
         const { cities } = this.props;
 
         return (
-            <table>
-                <thead>
+            <table className="table-hover table-bordered">
+                <thead className="thead-dark">
                     <tr>
                         <th>Name</th>
                         <th>Lat</th>
@@ -43,10 +43,10 @@ export default class CityList extends React.Component<ICityListProps, {}> {
                 <td>{city.lat}</td>
                 <td>{city.lng}</td>
                 <td>
-                    <button>i</button>
+                    <button id="btnEdit"><i className="fas fa-edit"></i></button>
                 </td>
                 <td>
-                    <button onClick={fireDelete}>x</button>
+                    <button onClick={fireDelete} id="btnDelete"><i className="fas fa-trash-alt"></i></button>
                 </td>
             </tr>
         );

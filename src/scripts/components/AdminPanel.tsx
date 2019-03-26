@@ -38,11 +38,13 @@ export default class AdminPanel extends React.Component<{}, IState> {
             ) : null;
 
         return (
+        <div className="container">
             <main>
                 <CityForm city={this.state.currentCity} />
                 <CityList cities={this.state.cities} onDelete={this.handleDelete} />
                 {addBtn}
             </main>
+        </div>
         );
     }
 
