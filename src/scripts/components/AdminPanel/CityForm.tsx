@@ -3,11 +3,12 @@ import City from "../../models/city";
 
 export interface ICityListProps {
     city: City;
+    onCancel: () => any;
 }
 
 export default class CityForm extends React.Component<ICityListProps, {}> {
     public render() {
-        const { city } = this.props;
+        const { city, onCancel } = this.props;
 
         if (city === null) {
             return null;
@@ -32,6 +33,9 @@ export default class CityForm extends React.Component<ICityListProps, {}> {
                 </div>
                 <button type="button" className="btn btn-primary">
                     Add
+                </button>
+                <button type="button" className="btn btn-danger ml-4" onClick={onCancel}>
+                    Cancel
                 </button>
             </form>
         );
