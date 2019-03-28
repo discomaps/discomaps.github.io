@@ -86,6 +86,20 @@
             }
 
             displayMap();
+
+            function addStaticMarker() {
+                let americaMarker = new H.map.Marker({ lat: 38.89, lng: -100 });
+                M.Map.addObject(americaMarker);
+            }
+
+            addStaticMarker();
+
+            function addStaticCircle() {
+                let circle = new H.map.Circle({ lat: 38.89, lng: -100 }, 543210);
+                M.Map.addObject(circle);
+            }
+
+            addStaticCircle();
         </script>
 
         <script type="text/javascript" src="dist/js/index.js"></script>
