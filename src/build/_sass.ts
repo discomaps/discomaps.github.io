@@ -4,7 +4,7 @@ import * as sass from "node-sass";
 import { config } from "./_config";
 import * as log from "./logging";
 const {
-    styles: { outFilePath, inFilePath },
+    styles: { outFilePath, inFilePath, outDirPath },
 } = config;
 
 const outFileMapPath = outFilePath + ".map";
@@ -20,8 +20,17 @@ function deleteFilesIfExist() {
 }
 
 function createFiles() {
-    fs.closeSync(fs.openSync(outFilePath, "w"));
-    fs.closeSync(fs.openSync(outFileMapPath, "w"));
+    try {
+        if (!fs.existsSync(outDirPath)) {
+            fs.mkdirSync(outDirPath, { recursive: true });
+        }
+
+        fs.closeSync(fs.openSync(outFilePath, "w"));
+        fs.closeSync(fs.openSync(outFileMapPath, "w"));
+    } catch (e) {
+        log.logError("creation failed of ouput files failed");
+        throw e;
+    }
 }
 
 function compileSassAsyncFunc(resolve: () => any, reject: () => any) {

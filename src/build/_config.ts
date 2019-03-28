@@ -13,6 +13,7 @@ export const config = {
     styles: {
         allSrcFiles: "./src/styles/**/*.scss",
         inFilePath: "./src/styles/index.scss",
+        outDirPath: "./dist/styles",
         outFilePath: "./dist/styles/index.css",
     },
 };
