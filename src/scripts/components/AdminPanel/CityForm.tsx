@@ -12,13 +12,11 @@ export interface ICityListProps {
 
 export default class CityForm extends React.Component<ICityListProps, IState> {
     private lngRef = React.createRef<HTMLInputElement>();
+    private latRef = React.createRef<HTMLInputElement>();
+    private nameRef = React.createRef<HTMLInputElement>();
 
     constructor(props: ICityListProps) {
         super(props);
-
-        this.state = {
-            lat: "",
-        };
     }
 
     public render() {
@@ -32,7 +30,7 @@ export default class CityForm extends React.Component<ICityListProps, IState> {
             <form className="border border-secondary mb-5">
                 <div className="form-group">
                     <label htmlFor="name">City name</label>
-                    <input type="text" className="form-control" id="name" placeholder="Enter name" />
+                    <input type="text" className="form-control" id="name" placeholder="Enter name" ref={this.nameRef} />
                     <small className="form-text text-muted">Put name of city</small>
                 </div>
                 <div className="form-group">
@@ -42,8 +40,7 @@ export default class CityForm extends React.Component<ICityListProps, IState> {
                         className="form-control"
                         id="lat"
                         placeholder="lat coordinate"
-                        value={this.state.lat}
-                        onChange={this.handleLatChange}
+                        ref={this.latRef}
                     />
                 </div>
                 <div className="form-group">
@@ -67,13 +64,8 @@ export default class CityForm extends React.Component<ICityListProps, IState> {
     }
 
     private handleAdd = () => {
-        alert(this.state.lat);
+        alert(this.nameRef.current.value);
+        alert(this.latRef.current.value);
         alert(this.lngRef.current.value);
-    }
-
-    private handleLatChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        this.setState({
-            lat: event.target.value,
-        });
     }
 }
