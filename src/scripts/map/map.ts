@@ -32,6 +32,7 @@ function initializeMapOnly(): void {
     map.Map = new H.Map(document.getElementById("mapContainer"), map.Layers.normal.map);
     // Prague
     map.Map.setCenter({ lat: 50.083333, lng: 14.416667 });
+    map.Behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map.Map));
     map.Map.setZoom(4);
 }
 
