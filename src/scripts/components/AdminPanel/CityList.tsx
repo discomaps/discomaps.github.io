@@ -15,7 +15,7 @@ export default class CityList extends React.Component<ICityListProps, {}> {
         const { cities } = this.props;
 
         return (
-            <table className="table-hover table-bordered">
+            <table className="table-hover table-bordered w-100">
                 <thead className="thead-dark">
                     <tr>
                         <th>Name</th>
