@@ -32,7 +32,7 @@ export default class AdminPanel extends React.Component<{}, IState> {
     public render() {
         const addBtn =
             this.state.currentCity === null ? (
-                <button type="button" className="btn btn-primary" onClick={this.handleAdd}>
+                <button type="button" className="btn btn-primary" onClick={this.handleRequestAdd}>
                     Add
                 </button>
             ) : null;
@@ -40,12 +40,21 @@ export default class AdminPanel extends React.Component<{}, IState> {
         return (
             <div className="container">
                 <main>
-                    <CityForm city={this.state.currentCity} onCancel={this.handleCancel} />
+                    <CityForm city={this.state.currentCity} onCancel={this.handleCancel} onAdd={this.handleAdd} />
                     <CityList cities={this.state.cities} onDelete={this.handleDelete} />
                     {addBtn}
                 </main>
             </div>
         );
+    }
+
+    private handleAdd = (city: City) => {
+        const cities = this.state.cities.slice();
+        cities.push(city);
+
+        this.setState({
+            cities,
+        });
     }
 
     private handleCancel = () => {
@@ -54,7 +63,7 @@ export default class AdminPanel extends React.Component<{}, IState> {
         });
     }
 
-    private handleAdd = () => {
+    private handleRequestAdd = () => {
         this.setState({
             currentCity: new City(),
         });

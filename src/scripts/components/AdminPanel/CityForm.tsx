@@ -8,6 +8,7 @@ interface IState {
 export interface ICityListProps {
     city: City;
     onCancel: () => any;
+    onAdd: (city: City) => any;
 }
 
 export default class CityForm extends React.Component<ICityListProps, IState> {
@@ -64,8 +65,20 @@ export default class CityForm extends React.Component<ICityListProps, IState> {
     }
 
     private handleAdd = () => {
-        alert(this.nameRef.current.value);
-        alert(this.latRef.current.value);
-        alert(this.lngRef.current.value);
+        const { onAdd } = this.props;
+
+        try {
+            const lat = !this.latRef.current.value ? 0 : parseFloat(this.latRef.current.value);
+            const lng = !this.lngRef.current.value ? 0 : parseFloat(this.lngRef.current.value);
+
+            onAdd({
+                lat,
+                lng,
+                name: this.nameRef.current.value,
+            });
+        } catch (e) {
+            // tslint:disable-next-line:no-console
+            console.log(e);
+        }
     }
 }
