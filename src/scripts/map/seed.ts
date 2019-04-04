@@ -1,7 +1,7 @@
 import City from "../models/city";
 import citiesList from "./citiesList";
 
-const citiesListKey = "citiesList";
+export const citiesListKey = "citiesList";
 
 const myStorage = window.localStorage;
 

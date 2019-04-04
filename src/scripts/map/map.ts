@@ -5,16 +5,37 @@
 
 declare const H: any;
 
-export function initializeMap(): void {
-    const M: any = {};
+import City from "../models/city";
+import { citiesListKey } from "./seed";
 
-    M.Platform = new H.service.Platform({
+const map: any = {};
+
+function addMarker(coordinates: { lat: number; lng: number }) {
+    map.Map.addObject(new H.map.Marker(coordinates));
+}
+
+function displayMarkers(): void {
+    const cities = JSON.parse(window.localStorage.getItem(citiesListKey)) as City[];
+
+    cities.forEach((element) => {
+        addMarker(element);
+    });
+}
+
+function initializeMapOnly(): void {
+    map.Platform = new H.service.Platform({
         app_code: "ZNuVUBYxOp8F--j8TkTaqQ",
         app_id: "BfLbvejjCW00d5s5kxyW",
         useHTTPS: true,
     });
-    M.Layers = M.Platform.createDefaultLayers();
-    M.Map = new H.Map(document.getElementById("mapContainer"), M.Layers.normal.map);
-    M.Map.setCenter({ lat: 38.89037, lng: -100 });
-    M.Map.setZoom(4);
+    map.Layers = map.Platform.createDefaultLayers();
+    map.Map = new H.Map(document.getElementById("mapContainer"), map.Layers.normal.map);
+    // Prague
+    map.Map.setCenter({ lat: 50.083333, lng: 14.416667 });
+    map.Map.setZoom(4);
+}
+
+export function initializeMap(): void {
+    initializeMapOnly();
+    displayMarkers();
 }
