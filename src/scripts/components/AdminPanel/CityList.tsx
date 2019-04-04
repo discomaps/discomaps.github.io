@@ -4,6 +4,7 @@ import City from "../../models/city";
 export interface ICityListProps {
     cities: City[];
     onDelete: (city: City) => any;
+    onEdit: (city: City) => any;
 }
 
 export default class CityList extends React.Component<ICityListProps, {}> {
@@ -35,15 +36,16 @@ export default class CityList extends React.Component<ICityListProps, {}> {
     }
 
     private renderRow = (city: City, index: number) => {
-        const { onDelete } = this.props;
+        const { onDelete, onEdit } = this.props;
         const fireDelete = () => onDelete(city);
+        const fireEdit = () => onEdit(city);
         return (
             <tr key={index}>
                 <td>{city.name}</td>
                 <td>{city.lat}</td>
                 <td>{city.lng}</td>
                 <td>
-                    <button id="btnEdit"><i className="fas fa-edit"></i></button>
+                    <button onClick={fireEdit} id="btnEdit"><i className="fas fa-edit"></i></button>
                 </td>
                 <td>
                     <button onClick={fireDelete} id="btnDelete"><i className="fas fa-trash-alt"></i></button>

@@ -1,17 +1,13 @@
 import * as React from "react";
 import City from "../../models/city";
 
-interface IState {
-    lat: string;
-}
-
 export interface ICityListProps {
     city: City;
     onCancel: () => any;
     onAdd: (city: City) => any;
 }
 
-export default class CityForm extends React.Component<ICityListProps, IState> {
+export default class CityForm extends React.Component<ICityListProps, {}> {
     private lngRef = React.createRef<HTMLInputElement>();
     private latRef = React.createRef<HTMLInputElement>();
     private nameRef = React.createRef<HTMLInputElement>();

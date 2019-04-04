@@ -41,11 +41,17 @@ export default class AdminPanel extends React.Component<{}, IState> {
             <div className="container">
                 <main>
                     <CityForm city={this.state.currentCity} onCancel={this.handleCancel} onAdd={this.handleAdd} />
-                    <CityList cities={this.state.cities} onDelete={this.handleDelete} />
+                    <CityList cities={this.state.cities} onDelete={this.handleDelete} onEdit={this.handleEdit} />
                     {addBtn}
                 </main>
             </div>
         );
+    }
+
+    private handleEdit = (city: City) => {
+        this.setState({
+            currentCity: city,
+        });
     }
 
     private handleAdd = (city: City) => {
