@@ -27,12 +27,20 @@ export default class CityForm extends React.Component<ICityListProps, {}> {
             <form className="border border-secondary mb-5">
                 <div className="form-group">
                     <label htmlFor="name">City name</label>
-                    <input type="text" className="form-control" id="name" placeholder="Enter name" ref={this.nameRef} />
+                    <input
+                        defaultValue={city.name}
+                        type="text"
+                        className="form-control"
+                        id="name"
+                        placeholder="Enter name"
+                        ref={this.nameRef}
+                    />
                     <small className="form-text text-muted">Put name of city</small>
                 </div>
                 <div className="form-group">
                     <label htmlFor="lat">Lat</label>
                     <input
+                        defaultValue={city.lat.toString()}
                         type="number"
                         className="form-control"
                         id="lat"
@@ -43,6 +51,7 @@ export default class CityForm extends React.Component<ICityListProps, {}> {
                 <div className="form-group">
                     <label htmlFor="lng">Lng</label>
                     <input
+                        defaultValue={city.lng.toString()}
                         type="number"
                         className="form-control"
                         id="lng"
