@@ -19,6 +19,7 @@ export default class CityList extends React.Component<ICityListProps, {}> {
             <table className="table-hover table-bordered w-100">
                 <thead className="thead-dark">
                     <tr>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Lat</th>
                         <th>Lng</th>
@@ -41,14 +42,19 @@ export default class CityList extends React.Component<ICityListProps, {}> {
         const fireEdit = () => onEdit(city);
         return (
             <tr key={index}>
+                <td>{city.id}</td>
                 <td>{city.name}</td>
                 <td>{city.lat}</td>
                 <td>{city.lng}</td>
                 <td>
-                    <button onClick={fireEdit} id="btnEdit"><i className="fas fa-edit"></i></button>
+                    <button onClick={fireEdit} id="btnEdit">
+                        <i className="fas fa-edit" />
+                    </button>
                 </td>
                 <td>
-                    <button onClick={fireDelete} id="btnDelete"><i className="fas fa-trash-alt"></i></button>
+                    <button onClick={fireDelete} id="btnDelete">
+                        <i className="fas fa-trash-alt" />
+                    </button>
                 </td>
             </tr>
         );

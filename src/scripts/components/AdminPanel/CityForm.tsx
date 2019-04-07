@@ -4,7 +4,7 @@ import City from "../../models/city";
 export interface ICityListProps {
     city: City;
     onCancel: () => any;
-    onAdd: (city: City) => any;
+    onAddOrSave: (city: City) => any;
 }
 
 export default class CityForm extends React.Component<ICityListProps, {}> {
@@ -59,8 +59,8 @@ export default class CityForm extends React.Component<ICityListProps, {}> {
                         ref={this.lngRef}
                     />
                 </div>
-                <button type="button" className="btn btn-primary" onClick={this.handleAdd}>
-                    Add
+                <button type="button" className="btn btn-primary" onClick={this.handleAddOrSave}>
+                    {city.id ? "Save" : "Add"}
                 </button>
                 <button type="button" className="btn btn-danger ml-4" onClick={onCancel}>
                     Cancel
@@ -69,14 +69,15 @@ export default class CityForm extends React.Component<ICityListProps, {}> {
         );
     }
 
-    private handleAdd = () => {
-        const { onAdd } = this.props;
+    private handleAddOrSave = () => {
+        const { onAddOrSave, city } = this.props;
 
         try {
             const lat = !this.latRef.current.value ? 0 : parseFloat(this.latRef.current.value);
             const lng = !this.lngRef.current.value ? 0 : parseFloat(this.lngRef.current.value);
 
-            onAdd({
+            onAddOrSave({
+                id: city.id,
                 lat,
                 lng,
                 name: this.nameRef.current.value,

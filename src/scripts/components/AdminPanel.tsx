@@ -8,6 +8,8 @@ interface IState {
     currentCity: City;
 }
 
+let idCounter = 1;
+
 export default class AdminPanel extends React.Component<{}, IState> {
     constructor(props: {}) {
         super(props);
@@ -15,11 +17,13 @@ export default class AdminPanel extends React.Component<{}, IState> {
         this.state = {
             cities: [
                 {
+                    id: idCounter++,
                     lat: 1,
                     lng: 2,
                     name: "Paris",
                 },
                 {
+                    id: idCounter++,
                     lat: 3,
                     lng: 4,
                     name: "Berlin",
@@ -40,7 +44,11 @@ export default class AdminPanel extends React.Component<{}, IState> {
         return (
             <div className="container">
                 <main>
-                    <CityForm city={this.state.currentCity} onCancel={this.handleCancel} onAdd={this.handleAdd} />
+                    <CityForm
+                        city={this.state.currentCity}
+                        onCancel={this.handleCancel}
+                        onAddOrSave={this.handleAddOrSave}
+                    />
                     <CityList cities={this.state.cities} onDelete={this.handleDelete} onEdit={this.handleEdit} />
                     {addBtn}
                 </main>
@@ -54,7 +62,26 @@ export default class AdminPanel extends React.Component<{}, IState> {
         });
     }
 
-    private handleAdd = (city: City) => {
+    private handleAddOrSave = (city: City) => {
+        if (city.id) {
+            const found = this.state.cities.find((x) => x.id === city.id);
+            if (!found) {
+                this.setState({
+                    currentCity: null,
+                });
+                return;
+            }
+
+            Object.assign(found, city);
+            this.setState({
+                cities: this.state.cities.slice(),
+                currentCity: null,
+            });
+            return;
+        }
+
+        city.id = idCounter++;
+
         const cities = this.state.cities.slice();
         cities.push(city);
 
@@ -70,8 +97,11 @@ export default class AdminPanel extends React.Component<{}, IState> {
     }
 
     private handleRequestAdd = () => {
+        const city = new City();
+        city.id = 0;
+
         this.setState({
-            currentCity: new City(),
+            currentCity: city,
         });
     }
 
