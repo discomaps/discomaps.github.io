@@ -22,7 +22,7 @@ export default class App extends React.Component<{}, {}> {
                         </ul>
                     </nav>
 
-                    <Route path="/" exact={true} component={Game} />
+                    <Route path="/" exact={true} component={AdminPanel} />
                     <Route path="/game/" component={Game} />
                     <Route path="/admin/" component={AdminPanel} />
                 </div>
