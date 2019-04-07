@@ -40,7 +40,7 @@ export default class CityForm extends React.Component<ICityListProps, {}> {
                 <div className="form-group">
                     <label htmlFor="lat">Lat</label>
                     <input
-                        defaultValue={city.lat.toString()}
+                        defaultValue={city.lat ? city.lat.toString() : ""}
                         type="number"
                         className="form-control"
                         id="lat"
@@ -51,7 +51,7 @@ export default class CityForm extends React.Component<ICityListProps, {}> {
                 <div className="form-group">
                     <label htmlFor="lng">Lng</label>
                     <input
-                        defaultValue={city.lng.toString()}
+                        defaultValue={city.lng ? city.lng.toString() : ""}
                         type="number"
                         className="form-control"
                         id="lng"
