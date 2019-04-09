@@ -47,7 +47,7 @@ export default class CityList extends React.Component<ICityListProps, {}> {
                 <td>{city.name}</td>
                 <td>{city.lat}</td>
                 <td>{city.lng}</td>
-                <td>{city.descr}</td>
+                <td>{city.description}</td>
                 <td>
                     <button onClick={fireEdit} id="btnEdit">
                         <i className="fas fa-edit" />
