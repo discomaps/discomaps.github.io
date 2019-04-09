@@ -54,6 +54,8 @@ export default class CityForm extends React.Component<ICityListProps, {}> {
                         min={-180}
                         max={180}
                     />
+                    <small className="form-text text-muted">Put lat coordinate of city</small>
+                    <small className="form-text text-danger">Missing Value</small>
                 </div>
                 <div className="form-group">
                     <label htmlFor="lng">Lng</label>
@@ -68,6 +70,8 @@ export default class CityForm extends React.Component<ICityListProps, {}> {
                         min={-180}
                         max={180}
                     />
+                    <small className="form-text text-muted">Put lng coordinate of city</small>
+                    <small className="form-text text-danger">Missing Value</small>
                 </div>
                 <div className="form-group">
                     <label htmlFor="description">Description</label>
@@ -79,6 +83,8 @@ export default class CityForm extends React.Component<ICityListProps, {}> {
                         maxLength={300}
                         required={true}
                     />
+                    <small className="form-text text-muted">Put description of city</small>
+                    <small className="form-text text-danger">Missing Value</small>
                 </div>
                 <button type="button" className="btn btn-primary" onClick={this.handleAddOrSave}>
                     {city.id ? "Save" : "Add"}
