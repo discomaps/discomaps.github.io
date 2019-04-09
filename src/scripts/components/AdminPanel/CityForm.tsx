@@ -63,7 +63,7 @@ export default class CityForm extends React.Component<ICityListProps, {}> {
                 <div className="form-group">
                     <label htmlFor="description">Description</label>
                     <textarea
-                        defaultValue={city.descr}
+                        defaultValue={city.description}
                         className="form-control"
                         id="description"
                         ref={this.descriptionRef}
