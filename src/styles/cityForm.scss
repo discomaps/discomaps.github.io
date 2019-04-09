@@ -3,7 +3,7 @@
         border: 1px solid red;
     }
 
-    input ~ small:nth-of-type(2),  textarea ~ small:nth-of-type(2){
+    input ~ small:nth-of-type(2),  textarea ~ small:nth-of-type(2), input ~ small:nth-of-type(3){
         display: none;
     }
 
@@ -14,4 +14,8 @@
     input:invalid ~ small:nth-of-type(2), textarea:invalid ~ small:nth-of-type(2){
         display: inline;
     }
+
+    // input:invalid:not(:empty) ~ small:nth-of-type(3){
+    //     display: inline;
+    // }
 }
