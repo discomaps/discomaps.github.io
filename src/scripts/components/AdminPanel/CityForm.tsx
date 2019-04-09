@@ -11,6 +11,7 @@ export default class CityForm extends React.Component<ICityListProps, {}> {
     private lngRef = React.createRef<HTMLInputElement>();
     private latRef = React.createRef<HTMLInputElement>();
     private nameRef = React.createRef<HTMLInputElement>();
+    private descrRef = React.createRef<HTMLTextAreaElement>();
 
     constructor(props: ICityListProps) {
         super(props);
@@ -59,6 +60,15 @@ export default class CityForm extends React.Component<ICityListProps, {}> {
                         ref={this.lngRef}
                     />
                 </div>
+                <div className="form-group">
+                    <label htmlFor="descr">Description</label>
+                    <textarea
+                        defaultValue={city.descr}
+                        className="form-control"
+                        id="descr"
+                        ref={this.descrRef}
+                    />
+                </div>
                 <button type="button" className="btn btn-primary" onClick={this.handleAddOrSave}>
                     {city.id ? "Save" : "Add"}
                 </button>
@@ -81,6 +91,7 @@ export default class CityForm extends React.Component<ICityListProps, {}> {
                 lat,
                 lng,
                 name: this.nameRef.current.value,
+                descr: this.descrRef.current.value,
             });
         } catch (e) {
             // tslint:disable-next-line:no-console
