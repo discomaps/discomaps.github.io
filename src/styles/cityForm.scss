@@ -3,15 +3,15 @@
         border: 1px solid red;
     }
 
-    input:invalid + small:nth-of-type(2){
+    input ~ small:nth-of-type(2){
         display: none;
     }
 
-    input:invalid + small:nth-of-type(1){
+    input:invalid ~ small:nth-of-type(1){
         display: none;
     }
 
-    input:invalid + small:nth-of-type(2){
+    input:invalid ~ small:nth-of-type(2){
         display: inline;
     }
 }
