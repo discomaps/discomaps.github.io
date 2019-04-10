@@ -25,7 +25,7 @@ export default class CityForm extends React.Component<ICityListProps, {}> {
         }
 
         return (
-            <form className="border border-secondary mb-5">
+            <form className="city-form border border-secondary mb-5">
                 <div className="form-group">
                     <label htmlFor="name">City name</label>
                     <input
@@ -35,8 +35,11 @@ export default class CityForm extends React.Component<ICityListProps, {}> {
                         id="name"
                         placeholder="Enter name"
                         ref={this.nameRef}
+                        maxLength={30}
+                        required={true}
                     />
                     <small className="form-text text-muted">Put name of city</small>
+                    <small className="form-text text-danger">Missing Value</small>
                 </div>
                 <div className="form-group">
                     <label htmlFor="lat">Lat</label>
@@ -47,7 +50,13 @@ export default class CityForm extends React.Component<ICityListProps, {}> {
                         id="lat"
                         placeholder="lat coordinate"
                         ref={this.latRef}
+                        required={true}
+                        min={-180}
+                        max={180}
                     />
+                    <small className="form-text text-muted">Put lat coordinate of city</small>
+                    <small className="form-text text-danger">Missing Value</small>
+                    <small className="form-text text-danger">Invalid Range</small>
                 </div>
                 <div className="form-group">
                     <label htmlFor="lng">Lng</label>
@@ -58,16 +67,26 @@ export default class CityForm extends React.Component<ICityListProps, {}> {
                         id="lng"
                         placeholder="lng coordinate"
                         ref={this.lngRef}
+                        required={true}
+                        min={-180}
+                        max={180}
                     />
+                    <small className="form-text text-muted">Put lng coordinate of city</small>
+                    <small className="form-text text-danger">Missing Value</small>
+                    <small className="form-text text-danger">Invalid Range</small>
                 </div>
                 <div className="form-group">
                     <label htmlFor="description">Description</label>
                     <textarea
-                        defaultValue={city.descr}
+                        defaultValue={city.description}
                         className="form-control"
                         id="description"
                         ref={this.descriptionRef}
+                        maxLength={300}
+                        required={true}
                     />
+                    <small className="form-text text-muted">Put description of city</small>
+                    <small className="form-text text-danger">Missing Value</small>
                 </div>
                 <button type="button" className="btn btn-primary" onClick={this.handleAddOrSave}>
                     {city.id ? "Save" : "Add"}
@@ -86,12 +105,26 @@ export default class CityForm extends React.Component<ICityListProps, {}> {
             const lat = !this.latRef.current.value ? 0 : parseFloat(this.latRef.current.value);
             const lng = !this.lngRef.current.value ? 0 : parseFloat(this.lngRef.current.value);
 
+            // if (!this.latRef.current.validity.valid) {
+            //     alert(this.latRef.current.validationMessage);
+            //     return;
+            // }
+
+            if (
+                !this.latRef.current.validity.valid ||
+                !this.lngRef.current.validity.valid ||
+                !this.nameRef.current.validity.valid ||
+                !this.descriptionRef.current.validity.valid
+            ) {
+                return;
+            }
+
             onAddOrSave({
+                description: this.descriptionRef.current.value,
                 id: city.id,
                 lat,
                 lng,
                 name: this.nameRef.current.value,
-                description: this.descriptionRef.current.value,
             });
         } catch (e) {
             // tslint:disable-next-line:no-console
