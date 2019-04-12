@@ -14,6 +14,12 @@ const citiesList: City[] = [
     { name: "Bucharest", lat: 44.4325, lng: 26.103889, description: "" },
 ];
 
+/*
+    TODO:
+        - add
+        - update
+        - delete
+ */
 export default class CityRepository {
     public db = new CityDatabase();
 
