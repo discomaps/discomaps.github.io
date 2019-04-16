@@ -1,3 +1,4 @@
+import Dexie from "dexie";
 import City from "../models/city";
 import CityDatabase from "./cityDatabase";
 
@@ -14,21 +15,65 @@ const citiesList: City[] = [
     { name: "Bucharest", lat: 44.4325, lng: 26.103889, description: "" },
 ];
 
-/*
-    TODO:
-        - add
-        - update
-        - delete
- */
 export default class CityRepository {
     public db = new CityDatabase();
 
-    public initialSeed = () => {
+    public add = (city: City) => {
         this.db.cities
-            .bulkAdd(citiesList)
+            .add(city)
             // tslint:disable-next-line:no-console
-            .then(() => console.log("added initial cities for indexdb"))
+            .then(() => console.log("city added: " + JSON.stringify(city)))
             // tslint:disable-next-line:no-console
             .catch((e) => console.dir(e));
+    }
+
+    public update = (city: City) => {
+        this.db.cities
+            .put(city)
+            // tslint:disable-next-line:no-console
+            .then(() => console.log("city updated: " + JSON.stringify(city)))
+            // tslint:disable-next-line:no-console
+            .catch((e) => console.dir(e));
+    }
+
+    public delete = (city: City) => {
+        this.db.cities
+            .delete(city.id)
+            // tslint:disable-next-line:no-console
+            .then(() => console.log("city deleted: " + JSON.stringify(city)))
+            // tslint:disable-next-line:no-console
+            .catch((e) => console.dir(e));
+    }
+
+    public getAll = () => {
+        return this.db.cities.toArray() as Promise<City[]>;
+    }
+
+    public initialSeed = () => {
+        this.db.cities
+            .count()
+            .then((count) => {
+                if (count === 0) {
+                    // it will return last index, so it is definetely > 0
+                    return this.db.cities.bulkAdd(citiesList);
+                }
+
+                return new Dexie.Promise<number>(function resolver(r, e) {
+                    r(0);
+                });
+            })
+            .then((count) => {
+                if (count === 0) {
+                    // tslint:disable-next-line:no-console
+                    console.log("no intial data added, db is not empty");
+                } else {
+                    // tslint:disable-next-line:no-console
+                    console.log("db was empty, initial data added");
+                }
+            })
+            .catch((e) => {
+                // tslint:disable-next-line:no-console
+                console.dir(e);
+            });
     }
 }
