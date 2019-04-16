@@ -23,12 +23,7 @@ export default class CityRepository {
     }
 
     public update = (city: City) => {
-        this.db.cities
-            .put(city)
-            // tslint:disable-next-line:no-console
-            .then(() => console.log("city updated: " + JSON.stringify(city)))
-            // tslint:disable-next-line:no-console
-            .catch((e) => console.dir(e));
+        return this.db.cities.put(city) as Promise<number>;
     }
 
     public delete = (city: City) => {

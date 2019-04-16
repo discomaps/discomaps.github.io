@@ -63,21 +63,31 @@ export default class AdminPanel extends React.Component<{}, IState> {
 
     private handleAddOrSave = (city: City) => {
         if (city.id) {
-            const found = this.state.cities.find((x) => x.id === city.id);
-            if (!found) {
-                this.setState({
-                    currentCity: null,
+            this.cityRepository
+                .update(city)
+                .then((id) => {
+                    const found = this.state.cities.find((x) => x.id === city.id);
+                    if (!found) {
+                        this.setState({
+                            currentCity: null,
+                        });
+                        return;
+                    }
+
+                    Object.assign(found, city);
+                    this.setState({
+                        cities: this.state.cities.slice(),
+                        currentCity: null,
+                    });
+
+                    this.cityRepository.update(city);
+                })
+                .catch((e) => {
+                    // tslint:disable-next-line:no-console
+                    console.log("handleAddOrSave failed");
+                    // tslint:disable-next-line:no-console
+                    console.dir(e);
                 });
-                return;
-            }
-
-            Object.assign(found, city);
-            this.setState({
-                cities: this.state.cities.slice(),
-                currentCity: null,
-            });
-
-            this.cityRepository.update(city);
 
             return;
         }

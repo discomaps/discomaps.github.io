@@ -53,6 +53,7 @@ export default class CityForm extends React.Component<ICityListProps, {}> {
                         required={true}
                         min={-180}
                         max={180}
+                        step={"any"}
                     />
                     <small className="form-text text-muted">Put lat coordinate of city</small>
                     <small className="form-text text-danger">Missing Value</small>
@@ -70,6 +71,7 @@ export default class CityForm extends React.Component<ICityListProps, {}> {
                         required={true}
                         min={-180}
                         max={180}
+                        step={"any"}
                     />
                     <small className="form-text text-muted">Put lng coordinate of city</small>
                     <small className="form-text text-danger">Missing Value</small>
