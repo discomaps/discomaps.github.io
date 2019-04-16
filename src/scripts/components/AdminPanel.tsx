@@ -1,5 +1,6 @@
 import * as React from "react";
 import City from "../models/city";
+import CityRepository from "../services/citiesRepository";
 import CityForm from "./AdminPanel/CityForm";
 import CityList from "./AdminPanel/CityList";
 
@@ -8,31 +9,27 @@ interface IState {
     currentCity: City;
 }
 
-let idCounter = 1;
-
 export default class AdminPanel extends React.Component<{}, IState> {
+    private cityRepository = new CityRepository();
     constructor(props: {}) {
         super(props);
 
         this.state = {
-            cities: [
-                {
-                    id: idCounter++,
-                    lat: 1,
-                    lng: 2,
-                    name: "Paris",
-                    description: "Good city",
-                },
-                {
-                    id: idCounter++,
-                    lat: 3,
-                    lng: 4,
-                    name: "Berlin",
-                    description: "Big city",
-                },
-            ],
+            cities: [],
             currentCity: null,
         };
+
+        this.cityRepository
+            .getAll()
+            .then((cities) => {
+                this.setState({
+                    cities,
+                });
+            })
+            .catch((e) => {
+                // tslint:disable-next-line:no-console
+                console.dir(e);
+            });
     }
 
     public render() {
@@ -79,17 +76,21 @@ export default class AdminPanel extends React.Component<{}, IState> {
                 cities: this.state.cities.slice(),
                 currentCity: null,
             });
+
+            this.cityRepository.update(city);
+
             return;
         }
 
-        city.id = idCounter++;
-
+        city.id = 0;
         const cities = this.state.cities.slice();
         cities.push(city);
 
         this.setState({
             cities,
         });
+
+        this.cityRepository.add(city);
     }
 
     private handleCancel = () => {
@@ -113,5 +114,7 @@ export default class AdminPanel extends React.Component<{}, IState> {
         this.setState({
             cities: this.state.cities.slice(),
         });
+
+        this.cityRepository.delete(city);
     }
 }
