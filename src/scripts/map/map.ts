@@ -5,20 +5,28 @@
 
 declare const H: any;
 
-import City from "../models/city";
-import { citiesListKey } from "./seed";
+import CityRepository from "../services/citiesRepository";
 
 const map: any = {};
+const cityRepository = new CityRepository();
 
 function addMarker(coordinates: { lat: number; lng: number }) {
     map.Map.addObject(new H.map.Marker(coordinates));
 }
 
 function displayMarkers(): void {
-    const cities = JSON.parse(window.localStorage.getItem(citiesListKey)) as City[];
-
-    cities.forEach((element) => {
-        addMarker(element);
+    cityRepository
+    .getAll()
+    .then((cities) => {
+        cities.forEach((element) => {
+            addMarker(element);
+        });
+    })
+    .catch((e) => {
+        // tslint:disable-next-line:no-console
+        console.log("displayMarkers failed");
+        // tslint:disable-next-line:no-console
+        console.dir(e);
     });
 }
 
