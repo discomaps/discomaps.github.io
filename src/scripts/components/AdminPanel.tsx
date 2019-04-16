@@ -1,5 +1,6 @@
 import * as React from "react";
 import City from "../models/city";
+import CityRepository from "../services/citiesRepository";
 import CityForm from "./AdminPanel/CityForm";
 import CityList from "./AdminPanel/CityList";
 
@@ -8,31 +9,27 @@ interface IState {
     currentCity: City;
 }
 
-let idCounter = 1;
-
 export default class AdminPanel extends React.Component<{}, IState> {
+    private cityRepository = new CityRepository();
     constructor(props: {}) {
         super(props);
 
         this.state = {
-            cities: [
-                {
-                    id: idCounter++,
-                    lat: 1,
-                    lng: 2,
-                    name: "Paris",
-                    description: "Good city",
-                },
-                {
-                    id: idCounter++,
-                    lat: 3,
-                    lng: 4,
-                    name: "Berlin",
-                    description: "Big city",
-                },
-            ],
+            cities: [],
             currentCity: null,
         };
+
+        this.cityRepository
+            .getAll()
+            .then((cities) => {
+                this.setState({
+                    cities,
+                });
+            })
+            .catch((e) => {
+                // tslint:disable-next-line:no-console
+                console.dir(e);
+            });
     }
 
     public render() {
@@ -66,30 +63,54 @@ export default class AdminPanel extends React.Component<{}, IState> {
 
     private handleAddOrSave = (city: City) => {
         if (city.id) {
-            const found = this.state.cities.find((x) => x.id === city.id);
-            if (!found) {
-                this.setState({
-                    currentCity: null,
-                });
-                return;
-            }
+            this.cityRepository
+                .update(city)
+                .then((id) => {
+                    const found = this.state.cities.find((x) => x.id === city.id);
+                    if (!found) {
+                        this.setState({
+                            currentCity: null,
+                        });
+                        return;
+                    }
 
-            Object.assign(found, city);
-            this.setState({
-                cities: this.state.cities.slice(),
-                currentCity: null,
-            });
+                    Object.assign(found, city);
+                    this.setState({
+                        cities: this.state.cities.slice(),
+                        currentCity: null,
+                    });
+
+                    this.cityRepository.update(city);
+                })
+                .catch((e) => {
+                    // tslint:disable-next-line:no-console
+                    console.log("handleAddOrSave failed");
+                    // tslint:disable-next-line:no-console
+                    console.dir(e);
+                });
+
             return;
         }
 
-        city.id = idCounter++;
+        delete city.id;
 
-        const cities = this.state.cities.slice();
-        cities.push(city);
+        this.cityRepository
+            .add(city)
+            .then((id) => {
+                city.id = id;
+                const cities = this.state.cities.slice();
+                cities.push(city);
 
-        this.setState({
-            cities,
-        });
+                this.setState({
+                    cities,
+                });
+            })
+            .catch((e) => {
+                // tslint:disable-next-line:no-console
+                console.log("handleAddOrSave failed");
+                // tslint:disable-next-line:no-console
+                console.dir(e);
+            });
     }
 
     private handleCancel = () => {
@@ -108,10 +129,22 @@ export default class AdminPanel extends React.Component<{}, IState> {
     }
 
     private handleDelete = (city: City) => {
-        const index = this.state.cities.indexOf(city);
-        this.state.cities.splice(index, 1);
-        this.setState({
-            cities: this.state.cities.slice(),
-        });
+        this.cityRepository
+            .delete(city)
+            .then(() => {
+                const index = this.state.cities.indexOf(city);
+                this.state.cities.splice(index, 1);
+                this.setState({
+                    cities: this.state.cities.slice(),
+                });
+
+                this.cityRepository.delete(city);
+            })
+            .catch((e) => {
+                // tslint:disable-next-line:no-console
+                console.log("handleDelete failed");
+                // tslint:disable-next-line:no-console
+                console.dir(e);
+            });
     }
 }
