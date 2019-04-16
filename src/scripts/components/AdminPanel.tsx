@@ -129,12 +129,22 @@ export default class AdminPanel extends React.Component<{}, IState> {
     }
 
     private handleDelete = (city: City) => {
-        const index = this.state.cities.indexOf(city);
-        this.state.cities.splice(index, 1);
-        this.setState({
-            cities: this.state.cities.slice(),
-        });
+        this.cityRepository
+            .delete(city)
+            .then(() => {
+                const index = this.state.cities.indexOf(city);
+                this.state.cities.splice(index, 1);
+                this.setState({
+                    cities: this.state.cities.slice(),
+                });
 
-        this.cityRepository.delete(city);
+                this.cityRepository.delete(city);
+            })
+            .catch((e) => {
+                // tslint:disable-next-line:no-console
+                console.log("handleDelete failed");
+                // tslint:disable-next-line:no-console
+                console.dir(e);
+            });
     }
 }

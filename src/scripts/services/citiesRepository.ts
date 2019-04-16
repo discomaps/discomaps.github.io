@@ -27,12 +27,7 @@ export default class CityRepository {
     }
 
     public delete = (city: City) => {
-        this.db.cities
-            .delete(city.id)
-            // tslint:disable-next-line:no-console
-            .then(() => console.log("city deleted: " + JSON.stringify(city)))
-            // tslint:disable-next-line:no-console
-            .catch((e) => console.dir(e));
+        return this.db.cities.delete(city.id) as Promise<void>;
     }
 
     public getAll = () => {

@@ -107,11 +107,6 @@ export default class CityForm extends React.Component<ICityListProps, {}> {
             const lat = !this.latRef.current.value ? 0 : parseFloat(this.latRef.current.value);
             const lng = !this.lngRef.current.value ? 0 : parseFloat(this.lngRef.current.value);
 
-            // if (!this.latRef.current.validity.valid) {
-            //     alert(this.latRef.current.validationMessage);
-            //     return;
-            // }
-
             if (
                 !this.latRef.current.validity.valid ||
                 !this.lngRef.current.validity.valid ||
