@@ -19,12 +19,7 @@ export default class CityRepository {
     public db = new CityDatabase();
 
     public add = (city: City) => {
-        this.db.cities
-            .add(city)
-            // tslint:disable-next-line:no-console
-            .then(() => console.log("city added: " + JSON.stringify(city)))
-            // tslint:disable-next-line:no-console
-            .catch((e) => console.dir(e));
+        return this.db.cities.add(city) as Promise<number>;
     }
 
     public update = (city: City) => {

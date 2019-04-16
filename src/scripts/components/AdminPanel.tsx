@@ -82,15 +82,25 @@ export default class AdminPanel extends React.Component<{}, IState> {
             return;
         }
 
-        city.id = 0;
-        const cities = this.state.cities.slice();
-        cities.push(city);
+        delete city.id;
 
-        this.setState({
-            cities,
-        });
+        this.cityRepository
+            .add(city)
+            .then((id) => {
+                city.id = id;
+                const cities = this.state.cities.slice();
+                cities.push(city);
 
-        this.cityRepository.add(city);
+                this.setState({
+                    cities,
+                });
+            })
+            .catch((e) => {
+                // tslint:disable-next-line:no-console
+                console.log("handleAddOrSave failed");
+                // tslint:disable-next-line:no-console
+                console.dir(e);
+            });
     }
 
     private handleCancel = () => {
